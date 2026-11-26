@@ -19,6 +19,16 @@ Elara explores a simple engineering principle: a local AI runtime should underst
 | Desktop             | Tauri 2 + React 19 dashboard and hardware profile, with unavailable measurements shown as unknown                        |
 | Telemetry           | Structured logs, a sequenced event bus and periodic resource sampling                                                    |
 
+## Desktop screenshots
+
+The actual React desktop frontend rendered in a browser with the project's existing
+test fixtures as its mocked Tauri IPC responses. All displayed data is sample data;
+these are not measurements from a real host or a packaged Tauri end-to-end run.
+
+![Elara dashboard with example CPU, memory and GPU metrics](docs/screenshots/dashboard.png)
+
+![Elara hardware profile with a synthetic host and effective resource budgets](docs/screenshots/hardware.png)
+
 ## Architecture at a glance
 
 ```mermaid

@@ -49,6 +49,16 @@ Funcionando, com testes:
 
 O [roteiro](docs/roadmap.md) descreve o que ficou de fora e por quê.
 
+## Capturas da interface
+
+Interface React real renderizada no navegador, utilizando as fixtures de teste
+como respostas simuladas da ponte Tauri. Todos os dados exibidos são de exemplo,
+não medições de uma máquina real nem um teste ponta a ponta do aplicativo empacotado.
+
+![Painel com exemplos de métricas de CPU, memória e GPU](docs/screenshots/dashboard.png)
+
+![Perfil de hardware com máquina fictícia e orçamento de recursos](docs/screenshots/hardware.png)
+
 ## Pré-requisitos
 
 Linux. O daemon usa Unix sockets, `/proc`, `/sys`, `statvfs(3)`, `getuid(2)` e
