@@ -1,0 +1,14 @@
+node_modules/
+dist/
+target/
+pnpm-lock.yaml
+Cargo.lock
+apps/desktop/src-tauri/gen/
+packages/schemas/src/generated/
+data/
+models/
+runtime/
+
+# Fixtures reproduzem arquivos do sistema byte a byte; reformatá-las mudaria o
+# que está sendo testado.
+crates/hardware/tests/fixtures/

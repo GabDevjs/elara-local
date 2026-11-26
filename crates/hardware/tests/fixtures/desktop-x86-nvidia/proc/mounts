@@ -1,0 +1,8 @@
+sysfs /sys sysfs rw,nosuid,nodev,noexec,relatime 0 0
+proc /proc proc rw,nosuid,nodev,noexec,relatime 0 0
+udev /dev devtmpfs rw,nosuid,relatime,size=16000000k 0 0
+/dev/nvme0n1p2 / ext4 rw,noatime,errors=remount-ro 0 0
+/dev/nvme0n1p1 /boot/efi vfat ro,relatime,fmask=0077 0 0
+/dev/sda1 /mnt/dados ext4 rw,relatime 0 0
+tmpfs /run tmpfs rw,nosuid,nodev,size=3300000k 0 0
+cgroup2 /sys/fs/cgroup cgroup2 rw,nosuid,nodev,noexec,relatime 0 0

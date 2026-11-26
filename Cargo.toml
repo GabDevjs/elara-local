@@ -1,0 +1,107 @@
+[workspace]
+resolver = "3"
+members = [
+    "crates/agentd",
+    "crates/hardware",
+    "crates/process-manager",
+    "crates/telemetry",
+    "apps/desktop/src-tauri",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.90"
+license = "Apache-2.0"
+repository = "https://github.com/biel/elara"
+authors = ["Elara contributors"]
+
+[workspace.dependencies]
+# Crates internos
+elara-hardware = { path = "crates/hardware" }
+elara-process-manager = { path = "crates/process-manager" }
+elara-telemetry = { path = "crates/telemetry" }
+
+# Runtime assíncrono / HTTP
+axum = { version = "0.8", default-features = false, features = [
+    "http1",
+    "json",
+    "query",
+    "tokio",
+] }
+tokio = { version = "1.47", features = [
+    "rt-multi-thread",
+    "macros",
+    "net",
+    "fs",
+    "process",
+    "signal",
+    "sync",
+    "time",
+    "io-util",
+] }
+tokio-stream = { version = "0.1", features = ["sync"] }
+tower = { version = "0.5", default-features = false }
+tower-http = { version = "0.7", features = ["trace", "limit"] }
+hyper = { version = "1.8", features = ["http1", "server", "client"] }
+hyper-util = { version = "0.1", features = ["tokio", "server", "http1"] }
+http-body-util = "0.1"
+
+# Serialização
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+ts-rs = { version = "12", features = ["serde-compat", "no-serde-warnings"] }
+
+# Persistência
+rusqlite = { version = "0.40", features = ["bundled", "serde_json"] }
+
+# Observabilidade
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = [
+    "env-filter",
+    "json",
+    "fmt",
+] }
+
+# Utilidades
+anyhow = "1"
+thiserror = "2"
+blake3 = "1"
+clap = { version = "4", features = ["derive", "env"] }
+directories = "6"
+jiff = { version = "0.2", features = ["serde"] }
+libc = "0.2"
+nvml-wrapper = "0.12"
+uuid = { version = "1", features = ["v4", "serde"] }
+
+# Dev
+tempfile = "3"
+
+[workspace.lints.rust]
+unsafe_code = "warn"
+missing_debug_implementations = "warn"
+rust_2018_idioms = { level = "warn", priority = -1 }
+
+[workspace.lints.clippy]
+all = { level = "warn", priority = -1 }
+pedantic = { level = "warn", priority = -1 }
+# Ruído sem valor para este projeto:
+module_name_repetitions = "allow"
+missing_errors_doc = "allow"
+missing_panics_doc = "allow"
+must_use_candidate = "allow"
+# Erros de verdade: nunca deixar unwrap/panic escondido em código de produção.
+unwrap_used = "warn"
+expect_used = "warn"
+panic = "warn"
+indexing_slicing = "warn"
+
+[profile.release]
+opt-level = "s"
+lto = true
+codegen-units = 1
+strip = true
+
+[profile.dev]
+opt-level = 0
+debug = 1

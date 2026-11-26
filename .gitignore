@@ -1,0 +1,26 @@
+# Node
+node_modules/
+dist/
+*.tsbuildinfo
+.vite/
+
+# Rust
+target/
+
+# Tauri
+apps/desktop/src-tauri/gen/
+
+# Dados locais gerados em runtime (perfis, benchmarks, sqlite, logs)
+data/**/*.json
+data/**/*.sqlite
+data/**/*.sqlite-*
+*.log
+
+# Modelos e runtimes baixados (nunca versionar pesos)
+models/
+runtime/llama.cpp/
+
+# Ambiente
+.env
+.env.local
+.DS_Store

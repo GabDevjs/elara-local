@@ -1,0 +1,37 @@
+[package]
+name = "elara-desktop"
+description = "Janela desktop do Elara: ponte entre a UI React e o daemon agentd."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[[bin]]
+name = "elara-desktop"
+path = "src/main.rs"
+
+[lints]
+workspace = true
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+# Deliberadamente enxuto: a ponte repassa JSON do daemon e não reimplementa
+# nenhum tipo de domínio. Quem valida o formato é o zod no lado da UI.
+http-body-util.workspace = true
+hyper.workspace = true
+hyper-util.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+tauri = { version = "2", features = [] }
+thiserror.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+
+[features]
+# Ativada pelo `tauri build`; mantém o binário sem console no Windows.
+custom-protocol = ["tauri/custom-protocol"]

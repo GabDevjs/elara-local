@@ -1,0 +1,46 @@
+{
+  "name": "elara",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Elara — Local Agent OS: runtime local que entende o hardware disponível e compila a melhor estratégia de agentes, modelos e recursos para executar uma tarefa.",
+  "license": "Apache-2.0",
+  "packageManager": "pnpm@11.13.0",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "preinstall": "node scripts/check-env.mjs --soft",
+    "dev": "node scripts/dev.mjs",
+    "dev:daemon": "node scripts/dev.mjs --only daemon",
+    "dev:desktop": "node scripts/dev.mjs --only desktop",
+    "dev:runtime": "pnpm --filter @elara/agent-runtime dev",
+    "build": "pnpm -r build && cargo build --release --workspace",
+    "build:ts": "pnpm -r build",
+    "build:rust": "cargo build --workspace",
+    "test": "pnpm run test:ts && cargo test --workspace",
+    "test:ts": "pnpm -r build && pnpm -r test",
+    "test:rust": "cargo test --workspace",
+    "lint": "eslint . && cargo clippy --workspace --all-targets -- -D warnings",
+    "lint:ts": "eslint .",
+    "lint:rust": "cargo clippy --workspace --all-targets -- -D warnings",
+    "typecheck": "pnpm -r typecheck",
+    "format": "prettier --write . && cargo fmt --all",
+    "format:check": "prettier --check . && cargo fmt --all --check",
+    "bindings": "cargo test --workspace export_bindings",
+    "bindings:check": "node scripts/check-bindings.mjs",
+    "check": "pnpm run format:check && pnpm run lint && pnpm run typecheck && pnpm run test",
+    "check:env": "node scripts/check-env.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@types/node": "26.1.1",
+    "eslint": "10.8.0",
+    "eslint-config-prettier": "10.1.8",
+    "globals": "17.8.0",
+    "prettier": "3.9.6",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.65.0",
+    "vitest": "4.1.10"
+  }
+}

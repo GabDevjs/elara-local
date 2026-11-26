@@ -1,0 +1,52 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Elara",
+  "version": "0.1.0",
+  "identifier": "dev.elara.desktop",
+
+  "build": {
+    "beforeDevCommand": "pnpm dev:vite",
+    "devUrl": "http://127.0.0.1:1420",
+    "beforeBuildCommand": "pnpm build",
+    "frontendDist": "../dist"
+  },
+
+  "app": {
+    "withGlobalTauri": false,
+    "windows": [
+      {
+        "title": "Elara",
+        "width": 1280,
+        "height": 860,
+        "minWidth": 960,
+        "minHeight": 640,
+        "resizable": true,
+        "center": true,
+        "decorations": true,
+        "theme": null
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' ipc: http://ipc.localhost; font-src 'self' data:",
+      "dangerousDisableAssetCspModification": false,
+      "assetProtocol": {
+        "enable": false,
+        "scope": []
+      }
+    }
+  },
+
+  "bundle": {
+    "active": true,
+    "targets": ["deb", "appimage"],
+    "icon": ["icons/32x32.png", "icons/128x128.png", "icons/128x128@2x.png"],
+    "category": "DeveloperTool",
+    "shortDescription": "Runtime local de agentes de IA",
+    "longDescription": "Elara detecta o hardware da máquina e compila dinamicamente a melhor estratégia de agentes, modelos e recursos para executar uma tarefa.",
+    "linux": {
+      "deb": {
+        "depends": ["libwebkit2gtk-4.1-0", "libgtk-3-0"]
+      }
+    }
+  }
+}

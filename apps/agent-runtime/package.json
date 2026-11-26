@@ -1,0 +1,27 @@
+{
+  "name": "@elara/agent-runtime",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Runtime de agentes em Node: registra-se no agentd e hospedará workflows, tools e memória.",
+  "main": "./dist/main.js",
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "rm -rf dist *.tsbuildinfo",
+    "dev": "tsx watch src/main.ts",
+    "start": "node dist/main.js",
+    "typecheck": "tsc -b --noEmit false --emitDeclarationOnly",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@elara/schemas": "workspace:*",
+    "@elara/sdk": "workspace:*",
+    "@elara/shared": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "26.1.1",
+    "tsx": "4.23.1",
+    "typescript": "6.0.3",
+    "vitest": "4.1.10"
+  }
+}

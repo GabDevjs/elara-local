@@ -1,0 +1,13 @@
+packages:
+  - 'apps/*'
+  - 'packages/*'
+
+# pnpm exige aprovação explícita de scripts de build de dependências.
+# Mantemos a lista mínima: só o que realmente precisa compilar binário nativo.
+allowBuilds:
+  esbuild: true
+  '@tailwindcss/oxide': true
+
+minimumReleaseAgeExclude:
+  - globals@17.8.0
+  - jsdom@30.0.0

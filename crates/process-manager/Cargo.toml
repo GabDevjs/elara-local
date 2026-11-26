@@ -1,0 +1,25 @@
+[package]
+name = "elara-process-manager"
+description = "Supervisão de processos filhos com backoff, limites e desligamento ordenado."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+elara-telemetry.workspace = true
+jiff.workspace = true
+libc.workspace = true
+serde.workspace = true
+thiserror.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+
+[dev-dependencies]
+tempfile.workspace = true
+tokio = { workspace = true, features = ["test-util"] }

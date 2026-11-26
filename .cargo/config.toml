@@ -1,0 +1,9 @@
+# O TypeScript do repositório compila com `moduleResolution: NodeNext`, que
+# exige extensão explícita em import relativo. Sem esta variável o `ts-rs`
+# emite `from "./CpuCache"` e o `tsc` rejeita todos os arquivos gerados.
+#
+# Fica aqui, e não só no script `pnpm bindings`, porque `cargo test` sozinho já
+# reexporta as bindings: se a variável dependesse do pnpm, rodar os testes Rust
+# diretamente quebraria silenciosamente o build do TypeScript.
+[env]
+TS_RS_IMPORT_EXTENSION = "js"

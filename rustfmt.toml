@@ -1,0 +1,8 @@
+# Estilo do workspace.
+#
+# `use_small_heuristics = "Max"` não é preferência estética: é o estilo em que os
+# arquivos de contrato (`crates/*/src/types.rs`, `crates/agentd/src/api/types.rs`)
+# já estão escritos. Sem esta linha, um `cargo fmt` reescreve arquivos que são
+# fonte da verdade do projeto e o diff de qualquer mudança fica ilegível.
+max_width = 100
+use_small_heuristics = "Max"

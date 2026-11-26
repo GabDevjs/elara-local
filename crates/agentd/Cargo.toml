@@ -1,0 +1,47 @@
+[package]
+name = "agentd"
+description = "Daemon local do Elara: hardware, recursos, eventos e supervisão de runtimes."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[[bin]]
+name = "agentd"
+path = "src/main.rs"
+
+[lints]
+workspace = true
+
+[dependencies]
+elara-hardware.workspace = true
+elara-process-manager.workspace = true
+elara-telemetry.workspace = true
+
+anyhow.workspace = true
+axum.workspace = true
+clap.workspace = true
+directories.workspace = true
+http-body-util.workspace = true
+hyper.workspace = true
+hyper-util.workspace = true
+jiff.workspace = true
+libc.workspace = true
+rusqlite.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+tokio.workspace = true
+tokio-stream.workspace = true
+tower.workspace = true
+tower-http.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+ts-rs.workspace = true
+uuid.workspace = true
+
+[dev-dependencies]
+tempfile.workspace = true
+tokio = { workspace = true, features = ["test-util"] }

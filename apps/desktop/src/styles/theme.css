@@ -1,0 +1,167 @@
+@import 'tailwindcss';
+
+/*
+ * Tokens do painel de instrumentos.
+ *
+ * Ficam em custom properties próprias (`--elara-*`) e são referenciadas pelo
+ * `@theme inline` do Tailwind. A indireção é o que torna um tema claro
+ * possível depois: bastará redeclarar o bloco `--elara-*` sob um seletor de
+ * tema, sem tocar em nenhuma classe de componente. Hoje só existe o escuro.
+ *
+ * A paleta é a do ícone do produto. Cada acento tem um significado fixo, e
+ * usá-lo fora dele é o começo de uma interface onde a cor não informa nada:
+ *   live    — dado que está mudando agora
+ *   compute — capacidade reservada ao Elara (computação pesada)
+ *   ok / warn / fail — estado de componente e severidade de aviso
+ */
+:root {
+  color-scheme: dark;
+
+  /* Superfícies: quase preto e frio, com dois degraus de elevação. */
+  --elara-void: #0a0f1c;
+  --elara-surface: #0f1524;
+  --elara-raised: #161e31;
+
+  /* Divisões são fios de cabelo, nunca sombras. */
+  --elara-line: rgba(255, 255, 255, 0.07);
+  --elara-line-strong: rgba(255, 255, 255, 0.14);
+
+  /* Texto: três degraus só. Mais do que isso vira ruído em tela densa. */
+  --elara-ink: #dce5f5;
+  --elara-ink-dim: #8b97ae;
+  --elara-ink-faint: #5a6579;
+
+  /* Acentos semânticos. */
+  --elara-live: #7de2ff;
+  --elara-compute: #8b7cf6;
+  --elara-ok: #5eead4;
+  --elara-warn: #fbbf24;
+  --elara-fail: #fb7185;
+
+  /*
+   * Mono para tudo que a máquina reportou; sans para as frases que um humano
+   * escreveu (`rationale`, `detail`, mensagens de aviso). A distinção é
+   * semântica: dá para saber, de relance, se a linha é medida ou explicação.
+   */
+  --elara-font-mono:
+    ui-monospace, 'JetBrains Mono', 'IBM Plex Mono', 'SFMono-Regular', 'DejaVu Sans Mono',
+    'Liberation Mono', 'Courier New', monospace;
+  --elara-font-sans:
+    'Inter', ui-sans-serif, system-ui, 'Segoe UI', 'Noto Sans', 'DejaVu Sans', sans-serif;
+}
+
+@theme inline {
+  --color-void: var(--elara-void);
+  --color-surface: var(--elara-surface);
+  --color-raised: var(--elara-raised);
+
+  --color-line: var(--elara-line);
+  --color-line-strong: var(--elara-line-strong);
+
+  --color-ink: var(--elara-ink);
+  --color-ink-dim: var(--elara-ink-dim);
+  --color-ink-faint: var(--elara-ink-faint);
+
+  --color-live: var(--elara-live);
+  --color-compute: var(--elara-compute);
+  --color-ok: var(--elara-ok);
+  --color-warn: var(--elara-warn);
+  --color-fail: var(--elara-fail);
+
+  --font-mono: var(--elara-font-mono);
+  --font-sans: var(--elara-font-sans);
+
+  /* Cantos praticamente retos: é instrumento, não cartão de marketing. */
+  --radius-hair: 2px;
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--elara-void);
+    color: var(--elara-ink);
+    font-family: var(--elara-font-mono);
+    font-size: 13px;
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Foco visível sempre: a tela é operável só pelo teclado. */
+  :focus-visible {
+    outline: 1px solid var(--elara-live);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: rgba(125, 226, 255, 0.24);
+  }
+
+  /* Barras de rolagem discretas, no tom das superfícies. */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: var(--elara-void);
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--elara-raised);
+    border: 2px solid var(--elara-void);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #24304a;
+  }
+}
+
+@layer components {
+  /*
+   * Rótulo de instrumento: pequeno, apagado, com tracking largo. O contraste
+   * baixo é proposital — o rótulo orienta, o número é que deve ser lido.
+   */
+  .label {
+    font-size: 9.5px;
+    line-height: 1.2;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--elara-ink-faint);
+    white-space: nowrap;
+  }
+
+  /*
+   * Números com largura fixa por dígito. Sem isto, um `47,2%` virando `8,3%`
+   * empurra tudo à direita a cada amostra e a tela treme.
+   */
+  .num {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum' 1;
+    letter-spacing: -0.015em;
+  }
+
+  /*
+   * Única animação da interface: o valor pisca em ciano no instante em que
+   * muda e volta à cor de repouso. Comunica "isto acabou de ser medido".
+   */
+  .num-live {
+    transition: color 420ms ease-out;
+  }
+  .num-live[data-tick='true'] {
+    color: var(--elara-live);
+    transition: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+}
